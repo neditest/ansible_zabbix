@@ -1,0 +1,20 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create a new screen or update an existing screen's items
+    local_action:
+      module: zabbix_screen
+      server_url: http://192.168.0.162/zabbix
+      login_user: Admin
+      login_password: zabbix
+      screens:
+        - screen_name: production-web-Screen
+          host_group: production-web
+          state: present
+          graph_names:
+            - CPU load
+            - Memory usage
+            - Network traffic on enp0s3
+          graph_width: 200
+          graph_height: 100
+

@@ -1,0 +1,43 @@
+---
+- name: インストールテスト
+  tasks:
+    - name: be sure libselinux-python is installed
+      yum: name=libselinux-python state=installed
+
+    - name: be sure httpd is installed
+      yum: name=httpd state=installed
+
+    - name: be sure httpd is running and enabled
+      service: name=httpd state=running enabled=yes
+
+    - name: be sure ftp in installed
+      yum: name=vsftpd state=installed
+
+    - name: be sure ftp is running and enabled
+      service: name=vsftpd state=running enabled=yes
+
+    - name: check httpd iptable rule
+      shell: iptables -L | grep -q ftp
+      register: register_ftp
+      failed_when: register_ftp.rc not in [0, 1]
+      changed_when: false
+
+    - name: add ftpd iptable rule
+      shell: iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 20:21 -j ACCEPT -m comment --comment "ftpd"
+      when: register_ftp.rc
+
+    - name: check httpd iptable rule
+      shell: iptables -L | grep -q http
+      register: register_http
+      failed_when: register_http.rc not in [0, 1]
+      changed_when: false
+
+    - name: add httpd iptable rule
+      shell: iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT -m comment --comment "httpd"
+      when: register_http.rc
+
+    - name: save iptables
+      shell: service iptables save
+
+    - name: iptables restart
+      service: name=iptables state=restarted

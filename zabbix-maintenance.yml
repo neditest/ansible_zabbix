@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - zabbix_maintenance: name="maintenance c7red"
+                        host_name=c7red
+                        state=present
+                        minutes=90
+                        server_url=http://192.168.0.162/zabbix
+                        login_user=Admin
+                        login_password=zabbix

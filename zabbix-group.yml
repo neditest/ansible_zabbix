@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  # Base create host groups example
+  - name: Create host groups
+    local_action:
+      module: zabbix_group
+      server_url: http://192.168.0.162/zabbix
+      login_user: Admin
+      login_password: zabbix
+      state: present
+      host_groups:
+        - production-web
+        - production-app
+        - production-db
+        - staging-web
+        - staging-app
+        - staging-db
+
+

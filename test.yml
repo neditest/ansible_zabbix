@@ -1,0 +1,28 @@
+---
+- hosts: c7red
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+    - name: Apache 最新版をインストール
+      yum:
+        name: httpd
+        state: latest
+    - name: Apache の設定ファイルを設置
+      template:
+        src: /srv/httpd.j2
+        dest: /etc/httpd.conf
+      notify:
+        - Apache を再起動
+    - name: Apache を起動し、OS ブート時の起動設定を有効化
+      service:
+        name: httpd
+        state: started
+        enabled: true
+  handlers:
+    - name: Apache を再起動
+      service:
+        name: httpd
+        state: restarted
+

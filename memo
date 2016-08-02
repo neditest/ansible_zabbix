@@ -1,0 +1,23 @@
+トリガ一覧
+
+深刻度			名前 																						条件式
+警告 			Template OS Linux: /etc/passwd has been changed on {HOST.NAME} 								{c7red:vfs.file.cksum[/etc/passwd].diff(0)}>0 有効  
+情報 			Template OS Linux: Configured max number of opened files is too low on {HOST.NAME} 			{c7red:kernel.maxfiles.last(0)}<1024 有効  
+情報 			Template OS Linux: Configured max number of processes is too low on {HOST.NAME} 			{c7red:kernel.maxproc.last(0)}<256 有効  
+警告 			Template OS Linux: Disk I/O is overloaded on {HOST.NAME} 									{c7red:system.cpu.util[,iowait].avg(5m)}>20 有効  
+警告 			Mounted filesystem discovery: Free disk space is less than 20% on volume / 					{c7red:vfs.fs.size[/,pfree].last(0)}<20 有効  
+警告 			Mounted filesystem discovery: Free disk space is less than 20% on volume /boot 				{c7red:vfs.fs.size[/boot,pfree].last(0)}<20 有効  
+警告 			Mounted filesystem discovery: Free inodes is less than 20% on volume / 						{c7red:vfs.fs.inode[/,pfree].last(0)}<20 有効  
+警告 			Mounted filesystem discovery: Free inodes is less than 20% on volume /boot 					{c7red:vfs.fs.inode[/boot,pfree].last(0)}<20 有効  
+情報 			Template OS Linux: Host information was changed on {HOST.NAME} 								{c7red:system.uname.diff(0)}>0 有効  
+情報 			Template App Zabbix Agent: Host name of zabbix_agentd was changed on {HOST.NAME} 			{c7red:agent.hostname.diff(0)}>0 有効  
+情報 			Template OS Linux: Hostname was changed on {HOST.NAME} 										{c7red:system.hostname.diff(0)}>0 有効  
+軽度の障害 		Template OS Linux: Lack of available memory on server {HOST.NAME} 							{c7red:vm.memory.size[available].last(0)}<20M 有効  
+警告 			Template OS Linux: Lack of free swap space on {HOST.NAME} 									{c7red:system.swap.size[,pfree].last(0)}<50 有効  
+警告 			Template OS Linux: Processor load is too high on {HOST.NAME} 								{c7red:system.cpu.load[percpu,avg1].avg(5m)}>5 有効  
+警告 			Template OS Linux: Too many processes on {HOST.NAME} 										{c7red:proc.num[].avg(5m)}>300 有効  
+警告 			Template OS Linux: Too many processes running on {HOST.NAME} 								{c7red:proc.num[,,run].avg(5m)}>30 有効  
+情報 			Template App Zabbix Agent: Version of zabbix_agent(d) was changed on {HOST.NAME} 			{c7red:agent.version.diff(0)}>0 有効  
+軽度の障害 		Template App Zabbix Agent: Zabbix agent on {HOST.NAME} is unreachable for 5 minutes 		{c7red:agent.ping.nodata(5m)}=1 有効  
+情報 			Template OS Linux: {HOST.NAME} has just been restarted 										{c7red:system.uptime.change(0)}<0 有効 
+

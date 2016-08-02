@@ -1,0 +1,23 @@
+
+apache_2_2:
+  # 起動ユーザ
+  user_name: apache
+  # 起動グループ
+  group_name: apache
+  # ソースファイル作業ディレクトリ
+  work_dir: /usr/local/src
+  # RPM ファイルビルド先ディレクトリ
+  rpmbuild_dir: /root/rpmbuild
+  # ソースファイルダウンロード URL
+  url: http://ftp.yz.yamagata-u.ac.jp/pub/network/apache//httpd/httpd-2.2.31.tar.gz
+  # ソースファイル名
+  src_filename: httpd-2.2.31.tar.gz
+  # RPM ファイル名
+  rpm_filenames:
+    - httpd-2.2.31-1.x86_64.rpm
+    - mod_ssl-2.2.31-1.x86_64.rpm
+  # RPM ファイル配置ディレクトリ
+  rpm_directory: /usr/local/src/httpd
+  # 設定ファイルパス
+  conf_file: /etc/httpd/conf/httpd.conf
+

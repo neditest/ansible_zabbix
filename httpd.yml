@@ -1,7 +1,13 @@
 ---
 # file: webservers.yml
-- hosts: webservers
+- name: install and configure the ntp
+  
   roles:
     - common
+
+- name: install and configure the web
+
+  roles:
     - httpd
+
 
