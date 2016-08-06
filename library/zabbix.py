@@ -83,13 +83,27 @@ class ZabbixInventory(object):
         return data
 
     def get_list(self, api):
-        hostsData = api.host.get({'output': 'extend', 'selectGroups': 'extend'})
+        #hostsData = api.host.get({'output': 'extend', 'selectGroups': 'extend'})
+        hostsData = api.host.get(
+          {
+            'output': 'extend', 
+            'selectGroups': 'extend', 
+#            "filter": {"^status": "0"},
+            "filter": {"maintenance_status": "1"}
+#            'selectInterfaces': 'extend',
+#            'selectInventory': 'extend'
+          }
+        )
         data = {}
         data[self.defaultgroup] = self.hoststub()
+        data['_meta'] = {}
+        data['_meta']['hostvars'] = {}
 
         for host in hostsData:
             hostname = host['name']
             data[self.defaultgroup]['hosts'].append(hostname)
+            data['_meta']['hostvars'][hostname] = host
+            data['_meta']['hostvars'][hostname]['ansible_ssh_host'] = hostname
 
             for group in host['groups']:
                 groupname = group['name']
