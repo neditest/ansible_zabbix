@@ -1,9 +1,9 @@
 ---
-- hosts: c7red
+- hosts: all
   vars:
     http_port: 80
     max_clients: 200
-  remote_user: root
+  remote_user: ansible
   tasks:
     - name: Apache 最新版をインストール
       yum:
@@ -26,3 +26,36 @@
         name: httpd
         state: restarted
 
+- hosts: production-app
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: ansible
+  tasks:
+    - name: production-app専用タスク１
+      yum:
+        name: httpd
+        state: latest
+    - name: production-app専用タスク２
+      template:
+        src: /srv/httpd.j2
+        dest: /etc/httpd.conf
+      notify:
+        - Apache を再起動
+
+- hosts: ~proap.*\.vmtest\.com    
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: ansible
+  tasks:
+    - name: 正規表現で指定されたホスト専用タスク１
+      yum:
+        name: httpd
+        state: latest
+    - name: 正規表現で指定されたホスト専用タスク２
+      template:
+        src: /srv/httpd.j2
+        dest: /etc/httpd.conf
+      notify:
+        - Apache を再起動

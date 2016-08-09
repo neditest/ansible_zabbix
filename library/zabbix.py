@@ -89,7 +89,8 @@ class ZabbixInventory(object):
             'output': 'extend', 
             'selectGroups': 'extend', 
 #            "filter": {"^status": "0"},
-            "filter": {"maintenance_status": "1"}
+#            "filter": {"monitored_hosts": "True"},
+#            "filter": {"maintenance_status": "1"}
 #            'selectInterfaces': 'extend',
 #            'selectInventory': 'extend'
           }

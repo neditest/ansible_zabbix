@@ -1,3 +1,81 @@
+
+(venv27) [ansible@ansible ansible_zabbix]$ ansible-playbook -i library/zabbix.py -l "production-app" test.yml --list-tasks --list-hosts
+
+playbook: test.yml
+
+  play #1 (all): all    TAGS: []
+    pattern: [u'all']
+    hosts (2):
+      proapp01.vmtest.com
+      proapp02.vmtest.local
+    tasks:
+      Apache 最新版をインストール       TAGS: []
+      Apache の設定ファイルを設置       TAGS: []
+      Apache を起動し、OS ブート時の起動設定を有効化    TAGS: []
+(venv27) [ansible@ansible ansible_zabbix]$ ansible-playbook -i library/zabbix.py -l "production-app production-web" test.yml --list-tasks --list-hosts
+
+playbook: test.yml
+
+  play #1 (all): all    TAGS: []
+    pattern: [u'all']
+    hosts (3):
+      proapp01.vmtest.com
+      proapp02.vmtest.local
+      c7red
+    tasks:
+      Apache 最新版をインストール       TAGS: []
+      Apache の設定ファイルを設置       TAGS: []
+      Apache を起動し、OS ブート時の起動設定を有効化    TAGS: []
+(venv27) [ansible@ansible ansible_zabbix]$ ansible-playbook -i library/zabbix.py -l "c7red" test.yml --list-tasks --list-hosts
+
+playbook: test.yml
+
+  play #1 (all): all    TAGS: []
+    pattern: [u'all']
+    hosts (1):
+      c7red
+    tasks:
+      Apache 最新版をインストール       TAGS: []
+      Apache の設定ファイルを設置       TAGS: []
+      Apache を起動し、OS ブート時の起動設定を有効化    TAGS: []
+
+(venv27) [ansible@ansible ansible_zabbix]$ ansible-playbook -i library/zabbix.py -l "production-app production-web" test.yml --list-tasks --list-hosts
+
+playbook: test.yml
+
+  play #1 (all): all    TAGS: []
+    pattern: [u'all']
+    hosts (3):
+      proapp01.vmtest.com
+      proapp02.vmtest.local
+      c7red
+    tasks:
+      Apache 最新版をインストール       TAGS: []
+      Apache の設定ファイルを設置       TAGS: []
+      Apache を起動し、OS ブート時の起動設定を有効化    TAGS: []
+
+  play #2 (production-app): production-app      TAGS: []
+    pattern: [u'production-app']
+    hosts (2):
+      proapp01.vmtest.com
+      proapp02.vmtest.local
+    tasks:
+      production-app専用タスク１        TAGS: []
+      production-app専用タスク２        TAGS: []
+
+  play #3 (~proap.*\.vmtest\.com): ~proap.*\.vmtest\.com        TAGS: []
+    pattern: [u'~proap.*\\.vmtest\\.com']
+    hosts (1):
+      proapp01.vmtest.com
+    tasks:
+      正規表現で指定されたホスト専用タスク１    TAGS: []
+      正規表現で指定されたホスト専用タスク２    TAGS: []
+
+
+
+
+
+
 トリガ一覧
 
 深刻度			名前 																						条件式
