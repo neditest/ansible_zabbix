@@ -63,6 +63,43 @@ EOS
        -d "${PARAMS}" | /usr/local/bin/jq -r '.result[].hostid'
 }
 
+
+#######################################
+# ホスト情報から ホストインベントリ情報を取得する
+# Arguments:
+#   $1 HOST NAME
+# Returns:
+#   ZABBIX HOST ID
+#######################################
+get_host_inventory() {
+  PARAMS=$(cat << EOS
+      {
+          "jsonrpc": "2.0",
+          "method": "host.get",
+          "params": {
+              "output": [
+                  "extend"
+              ],
+              "selectInventory": "extend",
+              "filter": {
+                  "name": [
+                      "$1"
+                  ]
+              }
+          },
+          "id": 1,
+          "auth": "${TOKEN}"
+      }
+EOS
+  )
+
+  curl -s -H 'Content-Type:application/json-rpc' \
+       ${URL} \
+       -d "${PARAMS}"  | /usr/local/bin/jq .
+}
+
+
+
 #######################################
 # ホストグループ情報から groupid を取得する
 # Arguments:

@@ -17,9 +17,10 @@
 #get_host_id 'c7red'
 
 #ホストステータス変更 ( 0:有効 1:無効 )
-change_host_status 'c7red' '2'
+#change_host_status 'c7red' '2'
 
-
+# ホストインベントリ表示
+get_host_inventory 'c7red'
 
 
 
