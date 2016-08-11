@@ -1,0 +1,4 @@
+#! /bin/bash
+
+printf "{\"msg\": \"helloworld\"}\n"
+
